@@ -7,7 +7,36 @@ Triangulates a polygon with holes encoded as a list of loops.
 ```javascript
 var triangulate = require("triangulate-polyline")
 
+var positions = [
+  [-2, -2],
+  [ 2, -2],
+  [ 2,  2],
+  [-2,  2],
+  [-1, -1],
+  [ 1, -1],
+  [ 1,  1],
+  [-1,  1]
+]
 
+var loops = [
+  [0, 1, 2, 3],
+  [4, 5, 6, 7]
+]
+
+console.log(triangulate(loops, positions))
+```
+
+Example output:
+
+```javascript
+[ [ 3, 7, 2 ],
+  [ 3, 0, 7 ],
+  [ 0, 4, 7 ],
+  [ 4, 0, 1 ],
+  [ 5, 4, 1 ],
+  [ 6, 5, 1 ],
+  [ 6, 1, 2 ],
+  [ 7, 6, 2 ] ]
 ```
 
 # Install
