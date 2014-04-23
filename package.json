@@ -1,0 +1,36 @@
+{
+  "name": "triangulate-polyline",
+  "version": "1.0.0",
+  "description": "Triangulates a complex polygon",
+  "main": "tripolyline.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "dependencies": {
+    "poly2tri": "1.3.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikolalysenko/triangulate-polyline.git"
+  },
+  "keywords": [
+    "triangulate",
+    "complex",
+    "polygon",
+    "hole",
+    "loop",
+    "polyline",
+    "multipolyline"
+  ],
+  "author": "Mikola Lysenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikolalysenko/triangulate-polyline/issues"
+  },
+  "homepage": "https://github.com/mikolalysenko/triangulate-polyline"
+}
