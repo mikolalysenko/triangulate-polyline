@@ -1,6 +1,6 @@
 {
   "name": "triangulate-polyline",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Triangulates a complex polygon",
   "main": "tripolyline.js",
   "directories": {
