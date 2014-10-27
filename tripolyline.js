@@ -1,6 +1,6 @@
 "use strict"
 
-module.exports = triangulatePolyline
+module.exports = triangulateLoop
 
 var poly2tri = require("poly2tri")
 
@@ -11,21 +11,15 @@ function PointWrapper(x, y, idx) {
   this.idx = idx
 }
 
-function tryTriangulation(ctx) {
-  try {
-    ctx.triangulate()
-  } catch(e) {
-    return false
-  }
-  return true
-}
-
-function triangulatePolyline(loops, positions) {
+function triangulatePolyline(loops, positions, perturb) {
   //Converts a loop into poly2tri format
   function convertLoop(loop) {
     return loop.map(function(v) {
       var p = positions[v]
-      return new PointWrapper(p[0], p[1], v)
+      return new PointWrapper(
+        p[0] + (0.5-Math.random())*perturb*(1.0+Math.abs(p[0])), 
+        p[1] + (0.5-Math.random())*perturb*(1.0+Math.abs(p[1])), 
+        v)
     })
   }
 
@@ -59,9 +53,7 @@ function triangulatePolyline(loops, positions) {
   }
 
   //Triangulate
-  if(!tryTriangulation(ctx)) {
-    return []
-  }
+  ctx.triangulate()
   var triangles = ctx.getTriangles()
 
   //Unbox triangles from poly2tri format to list of indices
@@ -72,4 +64,19 @@ function triangulatePolyline(loops, positions) {
       tri.getPoint(2).idx
     ]
   })
+}
+
+//poly2tri is non robust, so we run it in a loop
+//If it fails, then we perturb the vertices by increasing amounts
+//until it works.  (Stupid)
+function triangulateLoop(loops, positions) {
+  var p = 0.0
+  for(var i=0; i<10; ++i) {
+    try {
+      return triangulatePolyline(loops, positions, p)
+    }catch(e) {
+    }
+    p = (p+1e-8)*2
+  }
+  return []
 }
