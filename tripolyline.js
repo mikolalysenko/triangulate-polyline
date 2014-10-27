@@ -11,6 +11,15 @@ function PointWrapper(x, y, idx) {
   this.idx = idx
 }
 
+function tryTriangulation(ctx) {
+  try {
+    ctx.triangulate()
+  } catch(e) {
+    return false
+  }
+  return true
+}
+
 function triangulatePolyline(loops, positions) {
   //Converts a loop into poly2tri format
   function convertLoop(loop) {
@@ -50,7 +59,9 @@ function triangulatePolyline(loops, positions) {
   }
 
   //Triangulate
-  ctx.triangulate()
+  if(!tryTriangulation(ctx)) {
+    return []
+  }
   var triangles = ctx.getTriangles()
 
   //Unbox triangles from poly2tri format to list of indices
